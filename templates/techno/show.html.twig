@@ -3,5 +3,6 @@
 {% block content %}
     <p>{{ techno.id }}</p>
     <p>{{ techno.nom }}</p>
-    <a href="{{ path('update_techno', {id: techno.id})}}" >lien</a>
+    <a href="{{ path('update_techno', {id: techno.id})}}" >Modifier</a>
+    <a href="{{ path('delete_techno', {id: techno.id})}}" >Supprimer</a>
 {% endblock %}

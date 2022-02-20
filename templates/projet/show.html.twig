@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <h3>Projet n°{{ projet.id }}</h3>
+    <h3>{{ projet.name }}</h3>
+    <br>
+    <h4>Stack technique</h4>
+
+    {% for technoProjet in technoProjet %}
+        <li>{{ technoProjet.id }}</li>
+        <li>{{ technoProjet.nom }}</li>
+    {% endfor %}
+
+    <div>
+        <a href="{{ path('update_projet', {id: projet.id})}}" >Modifier</a>
+        <a href="{{ path('delete_projet', {id: projet.id})}}" >Supprimer</a>
+    </div>
+
+{% endblock %}

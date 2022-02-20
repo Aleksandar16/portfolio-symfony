@@ -149,7 +149,7 @@ class Projet
     }
 
     /**
-     * @return Collection<int, Techno>
+     * @return Collection|Techno[]
      */
     public function getTechnos(): Collection
     {
@@ -160,14 +160,17 @@ class Projet
     {
         if (!$this->technos->contains($techno)) {
             $this->technos[] = $techno;
+            $techno->addProjet($this);
         }
 
         return $this;
     }
 
-    public function removeTechno(Techno $techno): self
+    public function removeCategory(Techno $techno): self
     {
-        $this->technos->removeElement($techno);
+        if ($this->technos->removeElement($techno)) {
+            $techno->removeProjet($this);
+        }
 
         return $this;
     }

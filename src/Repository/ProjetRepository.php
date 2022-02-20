@@ -47,4 +47,18 @@ class ProjetRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByProjet(Projet $projet)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT t
+            FROM App\Entity\Techno t
+            INNER JOIN t.projets p
+            WHERE p.id = :id'
+        )->setParameter('id', $projet);
+
+        return $query->getResult();
+    }
 }

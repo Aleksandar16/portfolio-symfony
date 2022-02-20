@@ -2,13 +2,20 @@
 
 {% block content %}
 
-    <h2>Liste des technos</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-9 col-9">
+                <h2>Liste des technos</h2>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-3">
+                <a type="button" class="btn btn-primary" href="{{ path('create_techno') }}" >Ajouter</a>
+            </div>
+        </div>
 
-    <a href="{{ path('create_techno') }}" >Ajouter</a>
-
-    {% for techno in techno %}
-        <p>{{ techno.id }}</p>
-        <p>{{ techno.nom }}</p>
-        <a href="{{ path('show_techno', {id: techno.id})}}" >lien</a>
-    {% endfor %}
+        {% for techno in techno %}
+            <p>{{ techno.id }}</p>
+            <p>{{ techno.nom }}</p>
+            <a href="{{ path('show_techno', {id: techno.id})}}" >Voir</a>
+        {% endfor %}
+    </div>
 {% endblock %}

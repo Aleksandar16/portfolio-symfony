@@ -71,9 +71,16 @@ class TechnoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->$doctrine->getManager()->flush();
 
-            return $this->redirectToRoute('update_techno', [
+            $entityManager = $doctrine->getManager();
+
+            $techno = $form->getData();
+
+            $entityManager->persist($techno);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('techno', [
                 'id' => $techno->getId()]);
         }
 
@@ -82,9 +89,14 @@ class TechnoController extends AbstractController
         ]);
     }
 
-    #[Route('/delete-techno', name: 'delete_techno')]
-    public function delete(Request $request, ManagerRegistry $doctrine, int $id): Response
+    #[Route('/delete-techno/{id}', name: 'delete_techno')]
+    public function delete(TechnoRepository $technoRepository, Request $request, ManagerRegistry $doctrine, int $id): Response
     {
-        return $this->render('techno/techno.html.twig');
+        $techno = $technoRepository->find($id);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($techno);
+        $entityManager->flush();
+        return $this->redirectToRoute('techno');
     }
 }

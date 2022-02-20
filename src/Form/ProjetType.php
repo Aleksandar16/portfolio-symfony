@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Projet;
+use App\Entity\Techno;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ProjetType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('name', TextType::class, [
+                'label' => 'Nom Projet',
+                'required' => true,
+            ])
+            ->add('debut')
+            ->add('fin')
+            ->add('contexte')
+            ->add('temps')
+            ->add('besoin')
+            ->add('bilan')
+            ->add('doc')
+            ->add('technos', EntityType::class, [
+                'class' => Techno::class,
+                'multiple' => true,
+            ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'Sauvegarder',
+            ]);
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Projet::class,
+        ]);
+    }
+}

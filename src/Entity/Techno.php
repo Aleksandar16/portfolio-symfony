@@ -44,7 +44,7 @@ class Techno
     }
 
     /**
-     * @return Collection<int, Projet>
+     * @return Collection|Projet[]
      */
     public function getProjets(): Collection
     {
@@ -55,7 +55,6 @@ class Techno
     {
         if (!$this->projets->contains($projet)) {
             $this->projets[] = $projet;
-            $projet->addTechno($this);
         }
 
         return $this;
@@ -63,10 +62,12 @@ class Techno
 
     public function removeProjet(Projet $projet): self
     {
-        if ($this->projets->removeElement($projet)) {
-            $projet->removeTechno($this);
-        }
+        $this->projets->removeElement($projet);
 
         return $this;
+    }
+
+    public function __toString(){
+        return $this->nom; // Remplacer champ par une propriété "string" de l'entité
     }
 }

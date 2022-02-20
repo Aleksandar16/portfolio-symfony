@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-9 col-9">
+                <h2>Liste des projets</h2>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-3">
+                <a type="button" class="btn btn-primary" href="{{ path('create_projet') }}" >Ajouter</a>
+            </div>
+        </div>
+
+        {% for projet in projet %}
+            <p>{{ projet.name }}</p>
+            <a href="{{ path('show_projet', {id: projet.id})}}" >Voir</a>
+        {% endfor %}
+    </div>
+{% endblock %}
