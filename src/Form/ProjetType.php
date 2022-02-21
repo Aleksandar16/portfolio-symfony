@@ -41,7 +41,19 @@ class ProjetType extends AbstractType
                 'attr' => ['class' => 'tinymce'],
             ])
             ->add('doc', FileType::class, [
-                'label' => 'Documentation',
+                'label' => 'Brochure (PDF file)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
+                ],
             ])
             ->add('technos', EntityType::class, [
                 'class' => Techno::class,

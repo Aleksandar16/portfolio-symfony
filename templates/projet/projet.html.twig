@@ -14,8 +14,8 @@
 
         {% for projet in projet %}
             <p>{{ projet.name }}</p>
-            <p>{{ projet.doc }}</p>
-            <a href="{{ path('show_projet', {id: projet.id})}}" >Voir</a>
+            <a href="{{ asset('uploads/projet/' ~ projet.doc) }}">Voir documentation (PDF)</a>
+            <a href="{{ path('show_projet', {id: projet.id})}}" >Voir le projet</a>
         {% endfor %}
     </div>
 {% endblock %}
