@@ -7,11 +7,13 @@ use App\Form\ProjetType;
 use App\Repository\ProjetRepository;
 use App\Repository\TechnoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProjetController extends AbstractController
 {
@@ -62,7 +64,7 @@ class ProjetController extends AbstractController
     }
 
     #[Route('/update-projet/{id}', name: 'update_projet')]
-    public function update(ProjetRepository $projetRepository, Request $request, ManagerRegistry $doctrine, int $id): Response
+    public function update(ProjetRepository $projetRepository, Request $request, ManagerRegistry $doctrine, int $id, SluggerInterface $slugger): Response
     {
         $projet = $projetRepository->find($id);
 

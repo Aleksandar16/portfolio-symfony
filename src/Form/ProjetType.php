@@ -6,10 +6,14 @@ use App\Entity\Projet;
 use App\Entity\Techno;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ProjetType extends AbstractType
 {
@@ -20,13 +24,25 @@ class ProjetType extends AbstractType
                 'label' => 'Nom Projet',
                 'required' => true,
             ])
-            ->add('debut')
-            ->add('fin')
-            ->add('contexte')
+            ->add('debut', DateType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('fin', DateType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('contexte', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+            ])
             ->add('temps')
-            ->add('besoin')
-            ->add('bilan')
-            ->add('doc')
+            ->add('besoin', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+            ])
+            ->add('bilan', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+            ])
+            ->add('doc', FileType::class, [
+                'label' => 'Documentation',
+            ])
             ->add('technos', EntityType::class, [
                 'class' => Techno::class,
                 'multiple' => true,

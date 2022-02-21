@@ -1,13 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h2>Ajouter Techno</h2>
 
-    {{ form_start(form) }}
-
-    {{ form_row(form.nom) }}
-    {{ form_row(form.submit) }}
-
-    {{ form_end(form) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-xs-12">
+                <h2>Ajouter Technologie</h2>
+                {{ form_start(form) }}
+                {{ form_row(form.nom) }}
+                <br>
+                {{ form_row(form.submit, { 'label': 'Ajouter' }) }}
+                {{ form_end(form) }}
+            </div>
+            <div class="col-lg-6 col-xs-12">
+                <h2>Technologies déjà présentes</h2>
+                {% for techno in techno %}
+                    <p>{{ techno.nom }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
 {% endblock%}

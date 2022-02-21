@@ -15,11 +15,13 @@ class TechnoType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => 'Nom Technologie',
+                'label' => ' ',
                 'required' => true,
+                'attr' => [
+                    'placeholder' => 'Nom de la technologie',
+                ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Sauvegarder',
             ]);
     }
 

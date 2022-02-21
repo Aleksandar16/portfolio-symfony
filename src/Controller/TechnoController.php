@@ -6,6 +6,7 @@ use App\Entity\Techno;
 use App\Form\TechnoType;
 use App\Repository\TechnoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -33,7 +34,7 @@ class TechnoController extends AbstractController
     }
 
     #[Route('/create-techno', name: 'create_techno')]
-    public function create(Request $request, ManagerRegistry $doctrine): Response
+    public function create(TechnoRepository $technoRepository, Request $request, ManagerRegistry $doctrine): Response
     {
         $techno = new Techno();
 
@@ -55,6 +56,7 @@ class TechnoController extends AbstractController
 
         return $this->render('techno/create-techno.html.twig', [
             'form' => $form->createView(),
+            'techno' => $technoRepository->findAll(),
         ]);
     }
 

@@ -13,7 +13,6 @@
         </div>
 
         {% for techno in techno %}
-            <p>{{ techno.id }}</p>
             <p>{{ techno.nom }}</p>
             <a href="{{ path('show_techno', {id: techno.id})}}" >Voir</a>
         {% endfor %}

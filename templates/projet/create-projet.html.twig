@@ -1,8 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h2>Ajouter Projet</h2>
 
-    {{ form(form) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-xs-12">
+                <h2>Ajouter Projet</h2>
+                {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.debut) }}
+                {{ form_row(form.fin) }}
+                {{ form_row(form.contexte) }}
+                {{ form_row(form.temps) }}
+            </div>
+            <div class="col-lg-6 col-xs-12">
+                {{ form_row(form.besoin) }}
+                {{ form_row(form.bilan) }}
+                {{ form_row(form.doc) }}
+                {{ form_row(form.technos) }}
+                {{ form_row(form.submit, { 'label': 'Ajouter' }) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 
 {% endblock%}
