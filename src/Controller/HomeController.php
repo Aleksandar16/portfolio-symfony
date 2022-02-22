@@ -13,4 +13,10 @@ class HomeController extends AbstractController
     {
         return $this->render('base.html.twig');
     }
+
+    #[Route('/back-office', name: 'backoffice')]
+    public function back(): Response
+    {
+        return $this->render('backoffice.html.twig');
+    }
 }

@@ -59,6 +59,24 @@ class ProjetType extends AbstractType
                 'class' => Techno::class,
                 'multiple' => true,
             ])
+            ->add('screen', FileType::class, [
+                'label' => 'Screen',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/gif',
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez mettre une image valide (.gif, .jpeg, .png, .jpg)',
+                    ])
+                ],
+            ])
+            ->add('github', TextareaType::class)
             ->add('submit', SubmitType::class, [
                 'label' => 'Sauvegarder',
             ]);

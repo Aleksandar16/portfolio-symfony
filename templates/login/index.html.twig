@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% if error %}
+        <div>
+            <p>L'identifiant ou le mot de passe est invalide !</p>
+        </div>
+    {% endif %}
+
+    <form action="{{ path('login') }}" method="post">
+        <label for="username">Identifiant</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="_password"/>
+
+        <input type="hidden" name="_target_path" value="/back-office"/>
+
+        <button type="submit">login</button>
+    </form>
+{% endblock %}

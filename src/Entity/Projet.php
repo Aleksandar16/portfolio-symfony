@@ -6,7 +6,6 @@ use App\Repository\ProjetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProjetRepository::class)]
 class Projet
@@ -43,9 +42,16 @@ class Projet
     #[ORM\ManyToMany(targetEntity: Techno::class, inversedBy: 'projets')]
     private $technos;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $screen;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $github;
+
     public function __construct()
     {
         $this->technos = new ArrayCollection();
+        $this->screen = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,6 +178,30 @@ class Projet
         if ($this->technos->removeElement($techno)) {
             $techno->removeProjet($this);
         }
+
+        return $this;
+    }
+
+    public function getScreen(): ?string
+    {
+        return $this->screen;
+    }
+
+    public function setScreen(string $screen): self
+    {
+        $this->screen = $screen;
+
+        return $this;
+    }
+
+    public function getGithub(): ?string
+    {
+        return $this->github;
+    }
+
+    public function setGithub(?string $github): self
+    {
+        $this->github = $github;
 
         return $this;
     }

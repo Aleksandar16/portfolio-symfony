@@ -47,15 +47,15 @@ class ProjetController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $brochureFile = $form->get('doc')->getData();
+            $doc = $form->get('doc')->getData();
 
-            if ($brochureFile) {
-                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+            if ($doc) {
+                $originalFilename = pathinfo($doc->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$doc->guessExtension();
 
                 try {
-                    $brochureFile->move(
+                    $doc->move(
                         $this->getParameter('projet_directory'),
                         $newFilename
                     );
@@ -64,6 +64,25 @@ class ProjetController extends AbstractController
                 }
 
                 $projet->setDoc($newFilename);
+            }
+
+            $screen = $form->get('screen')->getData();
+
+            if ($screen) {
+                $originalFilename = pathinfo($screen->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newScreen = $safeFilename.'-'.uniqid().'.'.$screen->guessExtension();
+
+                try {
+                    $screen->move(
+                        $this->getParameter('projet_directory'),
+                        $newScreen
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $projet->setScreen($newScreen);
             }
 
             $entityManager = $doctrine->getManager();
@@ -113,6 +132,25 @@ class ProjetController extends AbstractController
                 }
 
                 $projet->setDoc($newFilename);
+
+                $screen = $form->get('screen')->getData();
+
+                if ($screen) {
+                    $originalFilename = pathinfo($screen->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newScreen = $safeFilename.'-'.uniqid().'.'.$screen->guessExtension();
+
+                    try {
+                        $screen->move(
+                            $this->getParameter('projet_directory'),
+                            $newScreen
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+
+                    $projet->setScreen($newScreen);
+                }
             }
 
             $entityManager = $doctrine->getManager();
