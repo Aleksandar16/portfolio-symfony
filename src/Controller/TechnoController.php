@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Techno;
 use App\Form\TechnoType;
 use App\Repository\TechnoRepository;
+use App\Repository\TypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TechnoController extends AbstractController
 {
@@ -30,11 +32,13 @@ class TechnoController extends AbstractController
             throw new NotFoundHttpException(sprintf("Techno not found", $id));
         }
 
-        return $this->render('techno/show.html.twig', ['techno' => $techno]);
+        $typeTechno = $techno->getType($techno);
+
+        return $this->render('techno/show.html.twig', ['techno' => $techno, 'type' => $typeTechno]);
     }
 
     #[Route('/create-techno', name: 'create_techno')]
-    public function create(TechnoRepository $technoRepository, Request $request, ManagerRegistry $doctrine): Response
+    public function create(SluggerInterface $slugger, TechnoRepository $technoRepository, Request $request, ManagerRegistry $doctrine): Response
     {
         $techno = new Techno();
 
@@ -42,6 +46,25 @@ class TechnoController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $screen = $form->get('image')->getData();
+
+            if ($screen) {
+                $originalFilename = pathinfo($screen->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newScreen = $safeFilename.'-'.uniqid().'.'.$screen->guessExtension();
+
+                try {
+                    $screen->move(
+                        $this->getParameter('projet_directory'),
+                        $newScreen
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $techno->setImage($newScreen);
+            }
 
             $entityManager = $doctrine->getManager();
 
@@ -61,7 +84,7 @@ class TechnoController extends AbstractController
     }
 
     #[Route('/update-techno/{id}', name: 'update_techno')]
-    public function update(TechnoRepository $technoRepository, Request $request, ManagerRegistry $doctrine, int $id): Response
+    public function update(SluggerInterface $slugger, TechnoRepository $technoRepository, Request $request, ManagerRegistry $doctrine, int $id): Response
     {
         $techno = $technoRepository->find($id);
 
@@ -73,6 +96,25 @@ class TechnoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $screen = $form->get('image')->getData();
+
+            if ($screen) {
+                $originalFilename = pathinfo($screen->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newScreen = $safeFilename.'-'.uniqid().'.'.$screen->guessExtension();
+
+                try {
+                    $screen->move(
+                        $this->getParameter('projet_directory'),
+                        $newScreen
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $techno->setImage($newScreen);
+            }
 
             $entityManager = $doctrine->getManager();
 

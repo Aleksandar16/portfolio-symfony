@@ -1,0 +1,25 @@
+#login {
+    text-align: center;
+    padding: 160px 25% 23%;
+    z-index: 3612;
+    background : linear-gradient(to bottom, #050024, #020142);
+    position: relative;
+}
+
+#login .form-group {
+    margin-bottom: 35px;
+}
+
+#login h3 {
+    color: white;
+    margin-bottom: 80px;
+}
+
+#login-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+}

@@ -21,6 +21,12 @@ class Techno
     #[ORM\ManyToMany(targetEntity: Projet::class, mappedBy: 'technos')]
     private $projets;
 
+    #[ORM\ManyToOne(targetEntity: Type::class, inversedBy: 'technos')]
+    private $type;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $image;
+
     public function __construct()
     {
         $this->projets = new ArrayCollection();
@@ -69,5 +75,29 @@ class Techno
 
     public function __toString(){
         return $this->nom; // Remplacer champ par une propriété "string" de l'entité
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

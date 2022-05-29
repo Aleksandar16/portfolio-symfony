@@ -1,8 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'backoffice.html.twig' %}
 
 {% block content %}
     <p>{{ techno.id }}</p>
     <p>{{ techno.nom }}</p>
+    <p>{{ type.name }}</p>
     <a href="{{ path('update_techno', {id: techno.id})}}" >Modifier</a>
     <a href="{{ path('delete_techno', {id: techno.id})}}" >Supprimer</a>
 {% endblock %}

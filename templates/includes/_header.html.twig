@@ -1,4 +1,40 @@
-<div>
-    <a href="{{ path('home') }}" >Accueil</a>
-    <a href="{{ path('login') }}" >Connexion</a>
-</div>
+<nav class="navbar fixed-top navbar-expand-lg" id="navbar">
+    <div class="container-fluid navbar-scroll">
+        <a class="navbar-brand" href="{{ path('home') }}">Accueil</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                <div id="first"></div>
+                <div id="second"></div>
+                <div id="third"></div>
+            </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#competences">Compétences</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#realisations" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Réalisations
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#realisations">Toutes les réalisations</a></li>
+                        {% for projet in projet %}
+                            <li><a class="dropdown-item" href="#{{ projet.name }}">{{ projet.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#profil">Profil</a>
+                </li>
+            </ul>
+            <form>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('login') }}">Connexion</a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</nav>

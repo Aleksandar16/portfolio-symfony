@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'backoffice.html.twig' %}
 
 {% block content %}
     <h2>Modifier Techno</h2>
@@ -6,6 +6,8 @@
     {{ form_start(form) }}
 
     {{ form_row(form.nom) }}
+    {{ form_row(form.image) }}
+    {{ form_row(form.type) }}
     {{ form_row(form.submit) }}
 
     {{ form_end(form) }}

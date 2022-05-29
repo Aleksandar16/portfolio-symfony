@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'backoffice.html.twig' %}
 
 {% block content %}
 
@@ -8,6 +8,8 @@
                 <h2>Ajouter Technologie</h2>
                 {{ form_start(form) }}
                 {{ form_row(form.nom) }}
+                {{ form_row(form.image) }}
+                {{ form_row(form.type) }}
                 <br>
                 {{ form_row(form.submit, { 'label': 'Ajouter' }) }}
                 {{ form_end(form) }}

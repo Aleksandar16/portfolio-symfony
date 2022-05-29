@@ -1,4 +1,4 @@
-{% extends 'backoffice.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block content %}
 
@@ -11,10 +11,5 @@
     {% for technoProjet in technoProjet %}
         <li>{{ technoProjet.nom }}</li>
     {% endfor %}
-
-    <div>
-        <a href="{{ path('update_projet', {id: projet.id})}}" >Modifier</a>
-        <a href="{{ path('delete_projet', {id: projet.id})}}" >Supprimer</a>
-    </div>
 
 {% endblock %}

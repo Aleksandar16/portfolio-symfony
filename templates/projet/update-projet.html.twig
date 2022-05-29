@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'backoffice.html.twig' %}
 
 {% block content %}
 
@@ -17,8 +17,10 @@
             <div class="col-lg-6 col-xs-12">
                 {{ form_row(form.besoin) }}
                 {{ form_row(form.bilan) }}
+                <p>Documentation actuelle : {{ projet.doc }}</p>
                 {{ form_row(form.doc) }}
                 {{ form_row(form.technos) }}
+                <img src="{{ asset('uploads/projet/' ~ projet.screen) }}" alt="" style="width: 100%;">
                 {{ form_row(form.screen) }}
                 {{ form_row(form.submit, { 'label': 'Modifier' }) }}
                 {{ form_end(form) }}

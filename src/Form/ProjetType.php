@@ -58,6 +58,7 @@ class ProjetType extends AbstractType
             ->add('technos', EntityType::class, [
                 'class' => Techno::class,
                 'multiple' => true,
+                'expanded' => true,
             ])
             ->add('screen', FileType::class, [
                 'label' => 'Screen',
@@ -76,7 +77,7 @@ class ProjetType extends AbstractType
                     ])
                 ],
             ])
-            ->add('github', TextareaType::class)
+            ->add('github', TextType::class)
             ->add('submit', SubmitType::class, [
                 'label' => 'Sauvegarder',
             ]);

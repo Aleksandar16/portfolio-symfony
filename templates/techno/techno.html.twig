@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'backoffice.html.twig' %}
 
 {% block content %}
 
@@ -14,6 +14,7 @@
 
         {% for techno in techno %}
             <p>{{ techno.nom }}</p>
+            <p>{{ techno.type.name }}</p>
             <a href="{{ path('show_techno', {id: techno.id})}}" >Voir</a>
         {% endfor %}
     </div>

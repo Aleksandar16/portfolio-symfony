@@ -132,25 +132,25 @@ class ProjetController extends AbstractController
                 }
 
                 $projet->setDoc($newFilename);
+            }
 
-                $screen = $form->get('screen')->getData();
+            $screen = $form->get('screen')->getData();
 
-                if ($screen) {
-                    $originalFilename = pathinfo($screen->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newScreen = $safeFilename.'-'.uniqid().'.'.$screen->guessExtension();
+            if ($screen) {
+                $originalFilename = pathinfo($screen->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newScreen = $safeFilename.'-'.uniqid().'.'.$screen->guessExtension();
 
-                    try {
-                        $screen->move(
-                            $this->getParameter('projet_directory'),
-                            $newScreen
-                        );
-                    } catch (FileException $e) {
-                        // ... handle exception if something happens during file upload
-                    }
-
-                    $projet->setScreen($newScreen);
+                try {
+                    $screen->move(
+                        $this->getParameter('projet_directory'),
+                        $newScreen
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
                 }
+
+                $projet->setScreen($newScreen);
             }
 
             $entityManager = $doctrine->getManager();
@@ -167,6 +167,7 @@ class ProjetController extends AbstractController
 
         return $this->render('projet/update-projet.html.twig', [
             'form' => $form->createView(),
+            'projet' => $projet,
         ]);
     }
 
